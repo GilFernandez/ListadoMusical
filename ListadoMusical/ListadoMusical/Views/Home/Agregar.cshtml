@@ -1,0 +1,41 @@
+﻿@model ListadoMusical.Models.ViewModels.CancionViewModel
+@{
+    ViewBag.Title = "Agregar Cancion";
+}
+
+<h2>Agregar</h2>
+
+<div class="row">
+    <div class="col-md-12">
+
+        @using (Html.BeginForm("Agregar", "Home", FormMethod.Post, new { role = "form", @class = "" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationMessage("error", new { @class = "text-danger" })
+
+            @Html.LabelFor(d => d.Titulo)
+            @Html.TextBoxFor(d => d.Titulo, new { @class = "form-control" })
+
+
+            @Html.LabelFor(d => d.Artista)
+            @Html.TextBoxFor(d => d.Artista, new { @class = "form-control" })
+
+
+            @Html.LabelFor(d => d.Año)
+            @Html.TextBoxFor(d => d.Año, new { @class = "form-control" })
+
+
+            @Html.LabelFor(d => d.Genero)
+            @Html.TextBoxFor(d => d.Genero, new { @class = "form-control" })
+
+         
+            <div style="text-align:right">
+                <br />
+                <input type="submit" class="btn btn-success" value="Guardar" />
+            </div>
+
+        }
+
+    </div>
+</div>

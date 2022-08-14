@@ -1,0 +1,47 @@
+﻿@model ListadoMusical.Models.ViewModels.EditarCancionViewModel
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar</h2>
+
+<div class="row">
+    <div class="col-md-12">
+
+        @using (Html.BeginForm("Editar", "Home", FormMethod.Post, new { role = "form", @class = "" }))
+        {
+
+            @Html.HiddenFor(d => d.Id)
+
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationMessage("error", new { @class = "text-danger" })
+
+
+
+            @Html.LabelFor(d => d.Titulo)
+            @Html.TextBoxFor(d => d.Titulo, new { @class = "form-control" })
+
+
+            @Html.LabelFor(d => d.Artista)
+            @Html.TextBoxFor(d => d.Artista, new { @class = "form-control" })
+
+
+            @Html.LabelFor(d => d.Año)
+            @Html.TextBoxFor(d => d.Año, new { @class = "form-control" })
+
+
+            @Html.LabelFor(d => d.Genero)
+            @Html.TextBoxFor(d => d.Genero, new { @class = "form-control" })
+
+
+            <div style="text-align:right">
+                <br />  
+                <input type="submit" class="btn btn-success" value="Guardar" />
+            </div>
+
+        }
+
+    </div>
+</div>
+

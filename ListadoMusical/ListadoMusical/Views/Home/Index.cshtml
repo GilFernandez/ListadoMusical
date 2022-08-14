@@ -1,0 +1,49 @@
+﻿@model List<ListadoMusical.Models.TableViewModels.CancionTableViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<h2>Canciones Favoritas</h2>
+<div class="row">
+    <div class="col-md-12">
+        <br />  
+        <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Home/Agregar")'" value="Agrega una canción nueva" />
+        <br />  
+    </div>
+</div>
+<br />  
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>Titulo</th>
+                <th>Artista</th>
+                <th>Año</th>
+                <th>Género</th>
+                <th>Agregada por</th>
+                <th>Agregdada en</th>
+                <th>Opciones</th>
+            </tr>
+
+            @foreach (var oElemento in Model)
+            {
+                <tr>
+                 
+                    <td>@oElemento.Titulo </td>
+                    <td>@oElemento.Artista </td>
+                    <td>@oElemento.Año </td>
+                    <td>@oElemento.Genero </td>
+                    <td>@oElemento.UsuarioAgregado </td>
+                    <td>@oElemento.FechaAgregdo </td>
+                    <td>
+                        <input onclick="document.location.href='@Url.Content("~/Home/Eliminar/"+oElemento.Id)'" type="button" value="Eliminar" class="btn bg-danger"/>
+                        <input onclick="document.location.href='@Url.Content("~/Home/Editar/"+oElemento.Id)'" type="button" value="Editar" class="btn bg-default" />
+                     
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

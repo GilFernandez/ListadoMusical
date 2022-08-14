@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ListadoMusicaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ListadoMusicaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cancion" EntityType="ListadoMusicaModel.Cancion" />
+    <EntitySet Name="sysdiagrams" EntityType="ListadoMusicaModel.sysdiagrams" />
+    <EntitySet Name="Usuario" EntityType="ListadoMusicaModel.Usuario" />
+    <AssociationSet Name="FKCancionUsuarioAgrega" Association="ListadoMusicaModel.FKCancionUsuarioAgrega">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Cancion" EntitySet="Cancion" />
+    </AssociationSet>
+    <AssociationSet Name="FKCancionUsuarioModifica" Association="ListadoMusicaModel.FKCancionUsuarioModifica">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Cancion" EntitySet="Cancion" />
+    </AssociationSet>
+    <EntitySet Name="vwCancionesFavoritas" EntityType="ListadoMusicaModel.vwCancionesFavoritas" />
+  </EntityContainer>
+  <EntityType Name="Cancion">
+    <Key>
+      <PropertyRef Name="idCancion" />
+    </Key>
+    <Property Name="idCancion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="titulo" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="artista" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="año" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="genero" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="estatus" Type="Int32" Nullable="false" />
+    <Property Name="idUsuarioAgrega" Type="Int32" Nullable="false" />
+    <Property Name="fechaAgrega" Type="DateTime" Precision="3" />
+    <Property Name="idUsuarioModifica" Type="Int32" />
+    <Property Name="fechaModifica" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Usuario" Relationship="ListadoMusicaModel.FKCancionUsuarioAgrega" FromRole="Cancion" ToRole="Usuario" />
+    <NavigationProperty Name="Usuario1" Relationship="ListadoMusicaModel.FKCancionUsuarioModifica" FromRole="Cancion" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreUsuario" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="estatus" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cancion" Relationship="ListadoMusicaModel.FKCancionUsuarioAgrega" FromRole="Usuario" ToRole="Cancion" />
+    <NavigationProperty Name="Cancion1" Relationship="ListadoMusicaModel.FKCancionUsuarioModifica" FromRole="Usuario" ToRole="Cancion" />
+  </EntityType>
+  <Association Name="FKCancionUsuarioAgrega">
+    <End Type="ListadoMusicaModel.Usuario" Role="Usuario" Multiplicity="1" />
+    <End Type="ListadoMusicaModel.Cancion" Role="Cancion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Cancion">
+        <PropertyRef Name="idUsuarioAgrega" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKCancionUsuarioModifica">
+    <End Type="ListadoMusicaModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+    <End Type="ListadoMusicaModel.Cancion" Role="Cancion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Cancion">
+        <PropertyRef Name="idUsuarioModifica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="vwCancionesFavoritas">
+    <Key>
+      <PropertyRef Name="C_" />
+      <PropertyRef Name="Titulo_de_canción" />
+      <PropertyRef Name="Artista" />
+      <PropertyRef Name="Año" />
+      <PropertyRef Name="Género" />
+      <PropertyRef Name="Agregada_por_" />
+    </Key>
+    <Property Name="C_" Type="Int32" Nullable="false" />
+    <Property Name="Titulo_de_canción" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Artista" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Año" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="Género" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Agregada_por_" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Agregada_en_" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>
